@@ -24,19 +24,6 @@ It is still under active development and should not be used with Wwise projects 
 - Features may be incomplete or unstable
 - Documentation may be outdated or missing
 - Production use is not recommended at this time
-
-# Features
-- **Wwise Session Connection**: Connects to the active Wwise session so the agent can issue WAAPI commands to the appropriate wwise session.
-- **Hierarchy Indexing**: Scans a parent path and builds a path-first index of the subtree for fast lookup and navigation.
-- **Object Creation & Organization**: Creates actor-mixers, containers, buses, work units, soundbanks, folders, and more under specified parent paths, and can move or rename them in batches.
-- **Event Authoring**: Creates multiple Wwise events in one batch from source objects and parent paths, and lists all existing event names.
-- **Game Object Management**: Creates, moves, and unregisters game objects in batches, with full 3D positioning support and a global fallback object.
-- **RTPC / Switch / State Setup**: Batch-creates RTPCs, switch groups, switches, state groups, and states, and exposes helpers to list and set them at runtime.
-- **Audio Import & Discovery**: Imports folders of audio into Wwise under a target parent, and lists all audio files under a given file-system path.
-- **Soundbank Configuration & Build**: Includes selected objects in soundbanks and generates soundbanks for specified platforms and languages using project metadata.
-- **Runtime Audio Control**: Posts events with optional delays, sets RTPC ramps, switches and states, moves game objects over time, and stops all sounds in the captured session.
-- **Layout & Property Utilities**: Toggles Wwise layouts, sets object properties by path, retrieves the current selection, and lists valid property names and value types.
-- Refer to [Tools](https://github.com/bilkentaudiodev/Wwise-MCP/blob/main/docs/tools/README.md) page for detailed explanation of each functionality.
   
 # Installation
 
@@ -68,6 +55,19 @@ It is still under active development and should not be used with Wwise projects 
 
 3. Before using any game object–related prompts (e.g. “Post X event on 5 new game objects and spread them around 500 units from the origin”), make sure you’ve enabled “Start Capture” (red when enabled) in Wwise’s Game Object view.
    > <img src="https://github.com/bilkentaudiodev/Wwise-MCP/blob/main/images/quickstart/Quickstart_GameObject.png" alt="Quickstart_GameObject" width="1000">
+
+# Features
+- **Wwise Session Connection**: Connects to the active Wwise session so the agent can issue WAAPI commands to the appropriate wwise session.
+- **Hierarchy Indexing**: Scans a parent path and builds a path-first index of the subtree for fast lookup and navigation.
+- **Object Creation & Organization**: Creates actor-mixers, containers, buses, work units, soundbanks, folders, and more under specified parent paths, and can move or rename them in batches.
+- **Event Authoring**: Creates multiple Wwise events in one batch from source objects and parent paths, and lists all existing event names.
+- **Game Object Management**: Creates, moves, and unregisters game objects in batches, with full 3D positioning support and a global fallback object.
+- **RTPC / Switch / State Setup**: Batch-creates RTPCs, switch groups, switches, state groups, and states, and exposes helpers to list and set them at runtime.
+- **Audio Import & Discovery**: Imports folders of audio into Wwise under a target parent, and lists all audio files under a given file-system path.
+- **Soundbank Configuration & Build**: Includes selected objects in soundbanks and generates soundbanks for specified platforms and languages using project metadata.
+- **Runtime Audio Control**: Posts events with optional delays, sets RTPC ramps, switches and states, moves game objects over time, and stops all sounds in the captured session.
+- **Layout & Property Utilities**: Toggles Wwise layouts, sets object properties by path, retrieves the current selection, and lists valid property names and value types.
+- Refer to [Tools](https://github.com/bilkentaudiodev/Wwise-MCP/blob/main/docs/tools/README.md) page for detailed explanation of each functionality.
 
 # Directory Structure
 
