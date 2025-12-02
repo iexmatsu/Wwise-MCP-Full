@@ -71,7 +71,7 @@ It is still under active development and should not be used with Wwise projects 
 
 # Directory Structure
 
-- **docs/** - Documentation
+- **docs/** - Wwise-MCP documentation
   - **setup/** - Instructions for installing and configuring Wwise-MCP and MCP clients ([Claude](https://github.com/bilkentaudiodev/Wwise-MCP/blob/main/docs/setup/Claude/ClaudeSetup.md) & [Cursor](https://github.com/bilkentaudiodev/Wwise-MCP/blob/main/docs/setup/Cursor/CusorSetup.md))
   - **tools/** - A list of all functionalities and example prompts
 
