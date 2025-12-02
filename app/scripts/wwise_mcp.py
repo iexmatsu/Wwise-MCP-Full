@@ -760,7 +760,7 @@ COMMANDS: dict[str, Command] = {
              "Valid layout types : Designer, Profiler, Soundbank, Mixer, Audio Object Profiler, Voice Profiler, Game Object Profiler"
              "Args: requested_layout : str. Returns none."
     ),
-    "get_all_property_name_and_valid_value_typess" : Command(
+    "get_all_property_name_and_valid_value_types" : Command(
         func=get_all_property_name_valid_values, 
         doc ="Return a newline-formatted help string listing the correct WAAPI property identifiers for the specified Wwise object type."
              "Args: None. Returns: str."
@@ -861,7 +861,7 @@ def _run_plan_sync(plan: list[any]) -> list[dict[str, any]]:
 
 mcp = FastMCP(
     name = "Wwise MCP Server",
-    version = "1.0.0"
+    version = "1.0"
 )
 
 @mcp.tool()
