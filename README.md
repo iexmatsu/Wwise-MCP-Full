@@ -67,7 +67,7 @@ It is still under active development and should not be used with Wwise projects 
 - **Soundbank Configuration & Build**: Includes selected objects in soundbanks and generates soundbanks for specified platforms and languages using project metadata.
 - **Runtime Audio Control**: Posts events with optional delays, sets RTPC ramps, switches and states, moves game objects over time, and stops all sounds in the captured session.
 - **Layout & Property Utilities**: Toggles Wwise layouts, sets object properties by path, retrieves the current selection, and lists valid property names and value types.
-- Refer to [Tools](https://github.com/bilkentaudiodev/Wwise-MCP/blob/main/docs/tools/README.md) page for detailed explanation of each functionality.
+- Refer to [Tools](https://github.com/bilkentaudiodev/Wwise-MCP/blob/main/docs/tools/ToolList.md) page for detailed explanation of each functionality.
 
 # Directory Structure
 
