@@ -5,7 +5,7 @@
 - Install [Wwise 2024.1+](https://www.audiokinetic.com/en/download/)
 - Install [Wwise-MCP](https://github.com/t90786613/TestRepo/releases/tag/v1.0)
 
-## Setup (for Cursor)
+## Setup for Windows
 1. Store and unzip the **Wwise-MCP** `.zip` file at your desired location.
 2. Launch the **Cursor Desktop** application.
 3. Open **Settings** icon the upper right of the application:
