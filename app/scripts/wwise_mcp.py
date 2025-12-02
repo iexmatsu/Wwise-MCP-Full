@@ -860,7 +860,7 @@ def _run_plan_sync(plan: list[any]) -> list[dict[str, any]]:
 #==============================================================================
 
 mcp = FastMCP(
-    name = "Wwise MCP Server",
+    name = "Wwise-MCP Server",
     version = "1.0"
 )
 
