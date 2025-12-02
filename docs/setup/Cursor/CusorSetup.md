@@ -31,5 +31,5 @@
 9. If everything works, Wwise-MCP should be visible under **Installed MCPs** and appear **green**.
 10. Start chatting!
 > <img src= "https://github.com/bilkentaudiodev/Wwise-MCP/blob/main/images/setup/Cursor/Cursor_Setup_04.png" alt="ClaudeSetup_04" width="1250">
-11. When chatting you can toggle between different agents via the button shown below. I had some success with Grok Code.
+11. When chatting you can toggle between different agents via the button shown below. If unsure of which model, use Grok Code.
 > <img src= "https://github.com/bilkentaudiodev/Wwise-MCP/blob/main/images/setup/Cursor/Cursor_Setup_05.png" alt="ClaudeSetup_05" width="1000">
