@@ -52,7 +52,7 @@ It is still under active development and should not be used with Wwise projects 
 # Quickstart
 
 1. **Connect to your Wwise project**  
-   Always start by running **“Connect to my Wwise project”**.  
+   Always start with a prompt akin to **“Connect to my Wwise project”**.  
    This attaches Wwise-MCP to your currently open Wwise session.
 
 2. **Let your MCP Client (i.e Claude) “see” your project structure**  
