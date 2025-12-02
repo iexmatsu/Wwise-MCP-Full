@@ -14,18 +14,18 @@
 > <img src="https://github.com/bilkentaudiodev/Wwise-MCP/blob/main/images/setup/Cursor/Cursor_Setup_02.png" alt="Cursor_Setup_02" width="1000">
 6. This will open the `mcp.json` file in your editor.
 7. Paste this Wwise-MCP configuration snippet into the appropriate section of the config json file. Make sure to set the path to where your Wwise-MCP lives.
-   ```json
-   {
-       "mcpServers":
-       {
-            "wwise-mcp":
-            {
-              "command": "C:\\Your\\PathTo\\Wwise-MCP.exe",
-              "args": []
-            }
-       }
-   }
-    ```
+```json
+{
+    "mcpServers":
+    {
+         "wwise-mcp":
+         {
+           "command": "C:\\Your\\PathTo\\Wwise-MCP.exe",
+           "args": []
+         }
+    }
+}
+ ```
 > <img src="https://github.com/bilkentaudiodev/Wwise-MCP/blob/main/images/setup/Cursor/Cursor_Setup_03.png" alt="Cursor_Setup_03" width="500">
 8. Save the file
 9. If everything works, Wwise-MCP should be visible under **Installed MCPs** and appear **green**.
