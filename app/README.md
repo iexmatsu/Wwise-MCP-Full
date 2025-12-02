@@ -16,7 +16,6 @@ Python bridge for interacting with Wwise 2024.1+ using the Model Context Protoco
    ```
 4. Activate the virtual environment:
    ```bash
-   uv venv
    source .venv/bin/activate  # On macOS
    .venv\Scripts\activate     # On Windows
    ```
