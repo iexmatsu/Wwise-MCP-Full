@@ -41,7 +41,7 @@ It is still under active development and should not be used with Wwise projects 
 # Installation
 
 ## Prerequisites
-- Install [Claude Desktop](https://www.claude.com/download) or [Cursor](https://cursor.com/download) or any MCP compatible AI platform.
+- Install [Claude Desktop](https://www.claude.com/download) or [Cursor](https://cursor.com/download) or any MCP compatible AI platform
 - Install [Wwise v2024.1+](https://www.audiokinetic.com/en/download/)
 - Install the latest [Wwise-MCP.zip](https://github.com/bilkentaudiodev/Wwise-MCP/releases/tag/v1.0)
 
