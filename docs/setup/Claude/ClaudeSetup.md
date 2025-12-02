@@ -13,7 +13,7 @@
 4. Go to **Developer → Edit config**.
 > <img src="https://github.com/bilkentaudiodev/Wwise-MCP/blob/main/images/setup/Claude/ClaudeSetup_02.png" alt="ClaudeSetup_02" width="500">
 6. This will open the `claude_desktop_config.json` file in your default editor.
-7. Paste the Wwise-MCP tool configuration snippet into the appropriate section of the config json file. Make sure to set the path to where your Wwise-MCP lives.
+7. Paste the snippet below into the appropriate section of the config json file. Make **sure to set the path** to where your Wwise-MCP lives.
 ```json
 {
     "mcpServers":
