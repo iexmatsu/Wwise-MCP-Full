@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="Images/Test.png" alt="wwise_mcp_logo" width="300">
+  <img src="images/wwise_mcp_logo.png" alt="wwise_mcp_logo" width="300">
 </p>
 
 <div align="center">
