@@ -72,7 +72,7 @@ It is still under active development and should not be used with Wwise projects 
 # Directory Structure
 
 - **docs/** - Documentation
-  - **setup/** - Instructions for installing and configuring Wwise-MCP and Claude Desktop
+  - **setup/** - Instructions for installing and configuring Wwise-MCP and MCP clients (Claude & Cursor)
   - **tools/** - A list of all functionalities and example prompts
 
 - **app/** - Python server and instructions for setting up Python environment can be found in the README
