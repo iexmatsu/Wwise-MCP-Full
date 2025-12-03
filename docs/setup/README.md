@@ -4,4 +4,4 @@ This section covers how to set up the Wwise Model Context Protocol (MCP) with Cl
 
 ## Contents
 - [Claude](Claude/ClaudeSetup.md) - Instructions for setting up Wwise-MCP with Claude
-- [Cursor](Cursor/CusorSetup.md) - Instructions for setting up Wwise-MCP with Cursor
+- [Cursor](Cursor/CursorSetup.md) - Instructions for setting up Wwise-MCP with Cursor
