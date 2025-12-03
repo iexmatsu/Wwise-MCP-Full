@@ -1,6 +1,6 @@
 ## Tool List
 
-Below is the list of commands exposed by Wwise-MCP, along with example prompts you can give to Claude.
+Below is the list of commands exposed by Wwise-MCP, along with example prompts you can give to your MCP client (i.e Claude).
 
 ---
 
