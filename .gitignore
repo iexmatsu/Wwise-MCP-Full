@@ -20,4 +20,4 @@ dist/
 .exe
 
 # Icon 
-.ico
+*.ico
