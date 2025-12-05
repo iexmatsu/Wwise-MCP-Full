@@ -425,7 +425,8 @@ def move_game_obj(
     game_obj_name: str, 
     start_pos: tuple[float, float, float], 
     end_pos: tuple[float, float, float], 
-    duration_ms: int
+    duration_ms: int, 
+    delay_ms: int
 )-> None:
     
     if not game_obj_name: 
@@ -434,6 +435,9 @@ def move_game_obj(
     if not isinstance(duration_ms, int) or duration_ms < 0: 
         raise ValueError("Ensure that duration_ms is an integer and non-negative when moving game obj.")
     
+    if not isinstance(delay_ms, int) or delay_ms < 0: 
+        raise ValueError("Ensure that delay_ms is an integer and non-negative when moving game obj.")
+    
     try: 
         return WwisePythonLibrary.start_position_ramp(
             obj = game_obj_name,
@@ -441,6 +445,7 @@ def move_game_obj(
             end_pos=end_pos,
             duration_ms = duration_ms,
             step_ms = 100,
+            delay_ms=delay_ms,
             front = (0.0, 1.0, 0.0),  
             top = (0.0, 0.0, 1.0),  
         )
@@ -716,9 +721,9 @@ COMMANDS: dict[str, Command] = {
     ),
     "move_game_obj" : Command(
         func=move_game_obj, 
-        doc="Moves the game object by its name from its start position to the desired end position over a duration (ms)." 
+        doc="Moves the game object by its name from its start position to the desired end position over a duration (ms). A delay (ms) can be set to schedule the start of the movement ramp." 
             "If no game object with the specified name exist, one will be created."
-            "Args : game_obj_name : str, start_pos : tuple(float, float, float), end_pos : tuple(float, float, float), duation_ms : int (ms). Returns None"
+            "Args : game_obj_name : str, start_pos : tuple(float, float, float), end_pos : tuple(float, float, float), duation_ms : int (ms), delay_ms : int(ms). Returns None"
     ),
     "stop_all_sounds" : Command(
         func=stop_all_sounds, 

@@ -497,8 +497,9 @@ def start_position_ramp(
     obj: str,
     start_pos: Vec3,
     end_pos: Vec3,
-    duration_ms: int,
-    step_ms: int = 16,
+    duration_ms: int, 
+    step_ms: int = 100,
+    delay_ms: int,
     front: Vec3 = (0.0, 1.0, 0.0),  
     top:   Vec3 = (0.0, 0.0, 1.0),  
 )-> None:
@@ -517,7 +518,11 @@ def start_position_ramp(
         _enqueue_position(gid, end_pos,   f, t, due_in_s=0.0)
         return
     
+    if delay_ms < 0:
+        delay_ms = 0
+    
     dur_s  = duration_ms / 1000.0
+    delay_s = delay_ms / 1000.0
     dt_s   = max(0.001, step_ms / 1000.0)
     steps  = max(1, math.ceil(dur_s / dt_s))
 
@@ -525,7 +530,7 @@ def start_position_ramp(
     for i in range(steps + 1):
         a   = i / steps
         pos = _lerp(start_pos, end_pos, a)
-        _enqueue_position(gid, pos, f, t, due_in_s=a * dur_s)
+        _enqueue_position(gid, pos, f, t, due_in_s=a * dur_s + delay_s)
 
 def create_game_obj(game_obj_name : str, position : Vec3) -> None: 
     return set_game_obj_position(game_obj_name, position[0], position[1], position[2])
