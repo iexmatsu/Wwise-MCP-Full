@@ -8,7 +8,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![Wwise](https://img.shields.io/badge/Wwise%20-2024.1%2B-blue.svg)](https://www.audiokinetic.com/en/wwise/)
-[![GitHub release](https://img.shields.io/github/v/release/bilkentaudiodev/Wwise-MCP)](https://github.com/bilkentaudiodev/Wwise-MCP/releases)
+[![GitHub release](https://img.shields.io/github/v/release/BilkentAudio/Wwise-MCP)](https://github.com/BilkentAudio/Wwise-MCP/releases)
 [![Status](https://img.shields.io/badge/Status-Experimental-red)]()
 
 </div>
@@ -30,11 +30,11 @@ It is still under active development and should not be used with Wwise projects 
 ## Prerequisites
 - Install [Claude Desktop](https://www.claude.com/download) or [Cursor](https://cursor.com/download) or any MCP compatible AI platform
 - Install [Wwise 2024.1+](https://www.audiokinetic.com/en/download/)
-- Install the latest [Wwise-MCP.zip](https://github.com/bilkentaudiodev/Wwise-MCP/releases/tag/v1.0)
+- Install the latest [Wwise-MCP.zip](https://github.com/BilkentAudio/Wwise-MCP/releases/tag/v1.0)
 
 ## Setup
 - Once you have the above 3 components installed, configure your MCP Client's (i.e Claude's or Cursor's) json file to include the Wwise-MCP application. 
-- Refer to the [setup page](https://github.com/bilkentaudiodev/Wwise-MCP/tree/main/docs/setup) for detailed instructions on setting up with [Claude](https://github.com/bilkentaudiodev/Wwise-MCP/blob/main/docs/setup/Claude/ClaudeSetup.md) and [Cursor](https://github.com/bilkentaudiodev/Wwise-MCP/blob/main/docs/setup/Cursor/CursorSetup.md)
+- Refer to the [setup page](https://github.com/BilkentAudio/Wwise-MCP/tree/main/docs/setup) for detailed instructions on setting up with [Claude](https://github.com/BilkentAudio/Wwise-MCP/blob/main/docs/setup/Claude/ClaudeSetup.md) and [Cursor](https://github.com/BilkentAudio/Wwise-MCP/blob/main/docs/setup/Cursor/CursorSetup.md)
 
   https://github.com/user-attachments/assets/98141541-8286-4c1d-98f5-2052364bf4bb
 
@@ -56,7 +56,7 @@ It is still under active development and should not be used with Wwise projects 
    > Resolve all path relationships in actor mixer.
 
 3. Before using any game object–related prompts (e.g. “Post X event on 5 new game objects and spread them around 500 units from the origin”), make sure you’ve enabled “Start Capture” (red when enabled) in Wwise’s Game Object view.
-   > <img src="https://github.com/bilkentaudiodev/Wwise-MCP/blob/main/images/quickstart/Quickstart_GameObject.png" alt="Quickstart_GameObject" width="1000">
+   > <img src="https://github.com/BilkentAudio/Wwise-MCP/blob/main/images/quickstart/Quickstart_GameObject.png" alt="Quickstart_GameObject" width="1000">
 
 # Features
 - **Wwise Session Connection**: Connects to the active Wwise session so the agent can issue WAAPI commands to the appropriate wwise session.
@@ -69,15 +69,15 @@ It is still under active development and should not be used with Wwise projects 
 - **Soundbank Configuration & Build**: Includes selected objects in soundbanks and generates soundbanks for specified platforms and languages using project metadata.
 - **Runtime Audio Control**: Posts events with optional delays, sets RTPC ramps, switches and states, moves game objects over time, and stops all sounds in the captured session.
 - **Layout & Property Utilities**: Toggles Wwise layouts, sets object properties by path, retrieves the current selection, and lists valid property names and value types.
-- Refer to [Tools](https://github.com/bilkentaudiodev/Wwise-MCP/blob/main/docs/tools/ToolList.md) page for detailed explanation of each functionality.
+- Refer to [Tools](https://github.com/BilkentAudio/Wwise-MCP/blob/main/docs/tools/ToolList.md) page for detailed explanation of each functionality.
 
 # Directory Structure
 
 - **docs/** - Wwise-MCP documentation
-  - **setup/** - Instructions for installing and configuring Wwise-MCP and MCP clients ([Claude](https://github.com/bilkentaudiodev/Wwise-MCP/blob/main/docs/setup/Claude/ClaudeSetup.md) & [Cursor](https://github.com/bilkentaudiodev/Wwise-MCP/blob/main/docs/setup/Cursor/CursorSetup.md))
+  - **setup/** - Instructions for installing and configuring Wwise-MCP and MCP clients ([Claude](https://github.com/BilkentAudio/Wwise-MCP/blob/main/docs/setup/Claude/ClaudeSetup.md) & [Cursor](https://github.com/BilkentAudio/Wwise-MCP/blob/main/docs/setup/Cursor/CursorSetup.md))
   - **tools/** - A list of all functionalities and example prompts
 
-- **app/** - Python server. Instructions for setting up Python environment can be found in the [README](https://github.com/bilkentaudiodev/Wwise-MCP/blob/main/app/README.md)
+- **app/** - Python server. Instructions for setting up Python environment can be found in the [README](https://github.com/BilkentAudio/Wwise-MCP/blob/main/app/README.md)
   - **scripts/** - Python application source code 
 
 
@@ -85,7 +85,7 @@ It is still under active development and should not be used with Wwise projects 
 - Wwise-MCP consists of 3 primary Python modules
 - The main entry point is wwise_mcp.py
 - Be sure you are using python version 3.13+
-- More info can be found [here](https://github.com/bilkentaudiodev/Wwise-MCP/blob/main/app/README.md)
+- More info can be found [here](https://github.com/BilkentAudio/Wwise-MCP/blob/main/app/README.md)
 
 # ⚠️ macOS Compatability  
 - The current macOS build is Apple Silicon only (arm64)
