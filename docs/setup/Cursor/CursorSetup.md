@@ -27,8 +27,8 @@
 }
  ```
 > <img src="https://github.com/bilkentaudiodev/Wwise-MCP/blob/main/images/setup/Cursor/Cursor_Setup_03.png" alt="Cursor_Setup_03" width="500">
-8. Save the file
-9. If everything works, Wwise-MCP should be visible under **Installed MCPs** and have a **green** dot visible.
+8. For macOS, the path for the json will be something like: `/Users/YourPathTo/GitHub/Wwise-MCP/app/scripts/dist/Wwise-MCP`
+9. Save the file. If everything works, Wwise-MCP should be visible under **Installed MCPs** and have a **green** dot visible.
 > <img src= "https://github.com/bilkentaudiodev/Wwise-MCP/blob/main/images/setup/Cursor/Cursor_Setup_04.png" alt="ClaudeSetup_04" width="2000">
 10. When chatting you can toggle between different agents via the button shown below. If unsure of which model, use Grok Code.
 > <img src= "https://github.com/bilkentaudiodev/Wwise-MCP/blob/main/images/setup/Cursor/Cursor_Setup_05.png" alt="ClaudeSetup_05" width="1000">
