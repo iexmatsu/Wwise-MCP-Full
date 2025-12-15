@@ -26,6 +26,6 @@
     }
 }
  ```
-8. For macOS the path for the json will be something like: `/Users/YourPathTo/GitHub/Wwise-MCP/app/scripts/dist/Wwise-MCP` 
+8. For macOS, the path for the json will be something like: `/Users/YourPathTo/GitHub/Wwise-MCP/app/scripts/dist/Wwise-MCP` 
 9. Save the json file and restart Claude Desktop by going to **File → Exit** for the updated JSON to take effect.
 > <img src="https://github.com/bilkentaudiodev/Wwise-MCP/blob/main/images/setup/Claude/ClaudeSetup_03.png" alt="ClaudeSetup_03" width="500">
