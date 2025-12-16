@@ -38,7 +38,7 @@ It is still under active development and should not be used with Wwise projects 
 
   https://github.com/user-attachments/assets/98141541-8286-4c1d-98f5-2052364bf4bb
 
-# ⚠️ macOS Security  
+# ⚠️ macOS Security Blocker
 - On macOS, you will most likely face an error on your first launch of Wwise-MCP after setup due to macOS security.
 - To bypass it, open **Terminal** then run `chmod +x "/YourPathTo/Wwise-MCP-v1-0/macOS/Apple Silicon/Wwise-MCP"`
 - Make sure to configure the above command to the path where you store your **version (Intel or Silicon)** of Wwise-MCP
