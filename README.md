@@ -1,6 +1,8 @@
 <p align="center">
-  <img src="images/wwise_mcp_banner.png" width="100%" />
+  <img src="images/wwise_mcp_logo.png" alt="wwise_mcp_logo" width="300">
 </p>
+
+<div align="center">
   
 # Model Context Protocol for Wwise
 
