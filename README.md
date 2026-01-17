@@ -35,7 +35,7 @@ It is still under active development and should not be used with Wwise projects 
 ## Setup
 - Once you have the above 3 components installed, configure your MCP Client's (i.e Claude's or Cursor's) json file to include the Wwise-MCP application.
 ```json
-{
+ {
     "mcpServers":
     {
          "wwise-mcp":
@@ -44,7 +44,7 @@ It is still under active development and should not be used with Wwise projects 
            "args": []
          }
     }
-}
+ }
  ```
 - Refer to the [setup page](https://github.com/BilkentAudio/Wwise-MCP/tree/main/docs/setup) for detailed instructions on setting up with [Claude](https://github.com/BilkentAudio/Wwise-MCP/blob/main/docs/setup/Claude/ClaudeSetup.md) and [Cursor](https://github.com/BilkentAudio/Wwise-MCP/blob/main/docs/setup/Cursor/CursorSetup.md)
 
