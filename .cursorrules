@@ -1,0 +1,5 @@
+## Always use wwise-mcp for Wwise-related operations
+
+- When users request Wwise-related operations (create/delete/move objects, set properties, generate SoundBank, post Events, modify Switch/State/RTPC, Attenuation, UI operations, etc.), these must be completed through wwise-mcp's MCP tools (such as execute_plan) rather than writing new scripts or code in the project.
+- Only add or modify code in the repository when users explicitly request "implement/write a feature in the codebase".
+- There's no need for users to say "use wwise-mcp" when calling MCP; if the task involves Wwise operations, use wwise-mcp directly.

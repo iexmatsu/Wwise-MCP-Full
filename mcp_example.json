@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "wwise-mcp": {
+      "type": "stdio",
+      "command": "<REPLACE_WITH_ABSOLUTE_PATH_TO>\\Wwise-MCP\\.venv\\Scripts\\python.exe",
+      "args": ["<REPLACE_WITH_ABSOLUTE_PATH_TO>\\Wwise-MCP\\app\\scripts\\wwise_mcp.py"]
+    }
+  }
+}

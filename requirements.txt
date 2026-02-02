@@ -1,0 +1,11 @@
+# Wwise-MCP dependencies
+# Python 3.13+ recommended (see app/README.md)
+
+# MCP server framework
+fastmcp>=2.0
+
+# Async utilities (used by execute_plan)
+anyio>=4.0
+
+# Wwise Authoring API client (provides waapi.WaapiClient)
+waapi-client>=0.5

@@ -11,12 +11,14 @@ Not suitable for:
 """
 
 from waapi import WaapiClient
+from waapi.client.event import EventHandler
 import threading
 import time
 import heapq
 import queue
 import logging
-from typing import TypedDict, Optional
+import uuid
+from typing import TypedDict, Optional, Any
 
 
 # Set up logger for this module
@@ -124,7 +126,70 @@ def waapi_call(
     
     logger.error("WAAPI call failed. URI: %s, Error: %s", uri, str(data))
     raise data
-    
+
+
+def waapi_subscribe(uri: str, options: dict | None = None, *, timeout: float = _DEFAULT_TIMEOUT) -> str:
+    """
+    Subscribe to a WAAPI topic. Returns a subscription_id for use with
+    waapi_subscription_events and waapi_unsubscribe. Thread-safe; must not be
+    called from the dispatcher thread.
+    """
+    global _client, _dispatcher, _reconnecting
+    with _lock:
+        if _reconnecting:
+            raise ValueError("WAAPI is reconnecting. Please retry in a moment.")
+        if _client is None or _dispatcher is None:
+            raise ValueError("WAAPI not connected. Call connect_to_waapi() first.")
+        dispatcher = _dispatcher
+    if not dispatcher.is_alive():
+        raise ValueError("WAAPI dispatcher not running. Call connect_to_waapi() to restart.")
+    if dispatcher.is_dispatcher_thread():
+        raise RuntimeError("Cannot call waapi_subscribe() from dispatcher thread.")
+    req = dispatcher.enqueue_subscribe(uri, options or {})
+    reply_q = req["reply_q"]
+    try:
+        status, data = reply_q.get(timeout=timeout)
+    except queue.Empty:
+        raise TimeoutError(f"waapi_subscribe to '{uri}' timed out after {timeout}s")
+    if status != "ok":
+        raise data
+    return data
+
+
+def waapi_unsubscribe(subscription_id: str, *, timeout: float = _DEFAULT_TIMEOUT) -> bool:
+    """Unsubscribe from a topic by subscription_id. Returns True if unsubscribed."""
+    global _client, _dispatcher, _reconnecting
+    with _lock:
+        if _reconnecting:
+            raise ValueError("WAAPI is reconnecting. Please retry in a moment.")
+        if _client is None or _dispatcher is None:
+            raise ValueError("WAAPI not connected. Call connect_to_waapi() first.")
+        dispatcher = _dispatcher
+    if not dispatcher.is_alive():
+        raise ValueError("WAAPI dispatcher not running.")
+    if dispatcher.is_dispatcher_thread():
+        raise RuntimeError("Cannot call waapi_unsubscribe() from dispatcher thread.")
+    req = dispatcher.enqueue_unsubscribe(subscription_id)
+    reply_q = req["reply_q"]
+    try:
+        status, data = reply_q.get(timeout=timeout)
+    except queue.Empty:
+        raise TimeoutError(f"waapi_unsubscribe timed out after {timeout}s")
+    if status != "ok":
+        raise data
+    return data
+
+
+def waapi_subscription_events(subscription_id: str, max_count: int | None = None,
+                              clear: bool = True) -> list[dict[str, Any]]:
+    """Return (and optionally drain) events received for the given subscription. Thread-safe."""
+    global _dispatcher
+    with _lock:
+        if _dispatcher is None:
+            raise ValueError("WAAPI not connected. Call connect_to_waapi() first.")
+        dispatcher = _dispatcher
+    return dispatcher.get_subscription_events(subscription_id, max_count=max_count, clear=clear)
+
 
 def connect_to_waapi(): 
     """
@@ -231,13 +296,15 @@ def disconnect_from_wwise_client():
 #                       Timed priority queue (MPSC -> single consumer)
 # ========================================================================================== 
 
-class _Req(TypedDict):
+class _Req(TypedDict, total=False):
 
     due_at: float
     uri: str
     args: dict
     options: dict | None
-    reply_q: Optional[queue.Queue] 
+    reply_q: Optional[queue.Queue]
+    kind: str          # "call" | "subscribe" | "unsubscribe"
+    subscription_id: str 
 
 
 class _TimedPQ:
@@ -300,6 +367,8 @@ class WaapiDispatcher:
         self._thread: Optional[threading.Thread] = None
         self._client: Optional[WaapiClient] = client   # adopt here
         self._thread_id: Optional[int] = None
+        self._subscriptions: dict[str, tuple[EventHandler, queue.Queue]] = {}
+        self._subscription_lock = threading.Lock()
         logger.debug("WaapiDispatcher initialized")
 
     def start(self):
@@ -323,6 +392,17 @@ class WaapiDispatcher:
                 logger.warning("WaapiDispatcher thread did not stop within timeout")
             else:
                 logger.debug("WaapiDispatcher thread stopped successfully")
+        
+        with self._subscription_lock:
+            subs = list(self._subscriptions.items())
+            self._subscriptions.clear()
+        for sub_id, (handler, _) in subs:
+            try:
+                if self._client:
+                    self._client.unsubscribe(handler)
+                logger.debug("Unsubscribed %s on stop", sub_id)
+            except Exception as e:
+                logger.warning("Error unsubscribing %s: %s", sub_id, str(e), exc_info=True)
         
         try:
             if self._client: 
@@ -353,6 +433,52 @@ class WaapiDispatcher:
         self._pq.put(req["due_at"], req)
         return req
 
+    def enqueue_subscribe(self, uri: str, options: dict | None = None,
+                          *, due_at: float | None = None) -> _Req:
+        reply_q: queue.Queue = queue.Queue(maxsize=1)
+        due = due_at if due_at is not None else time.monotonic()
+        req: _Req = {
+            "due_at": due,
+            "kind": "subscribe",
+            "uri": uri,
+            "options": options or {},
+            "reply_q": reply_q,
+        }
+        self._pq.put(due, req)
+        return req
+
+    def enqueue_unsubscribe(self, subscription_id: str, *, due_at: float | None = None) -> _Req:
+        reply_q: queue.Queue = queue.Queue(maxsize=1)
+        due = due_at if due_at is not None else time.monotonic()
+        req: _Req = {
+            "due_at": due,
+            "kind": "unsubscribe",
+            "subscription_id": subscription_id,
+            "reply_q": reply_q,
+        }
+        self._pq.put(due, req)
+        return req
+
+    def get_subscription_events(self, subscription_id: str, max_count: int | None = None,
+                                clear: bool = True) -> list[dict[str, Any]]:
+        """Drain and return events for a subscription. Thread-safe."""
+        with self._subscription_lock:
+            entry = self._subscriptions.get(subscription_id)
+            if not entry:
+                return []
+            _, event_q = entry
+        events: list[dict[str, Any]] = []
+        n = 0
+        limit = max_count if max_count is not None else (1 << 31)
+        while n < limit:
+            try:
+                ev = event_q.get_nowait()
+                events.append(ev)
+                n += 1
+            except queue.Empty:
+                break
+        return events
+
     def _run(self):
         self._thread_id = threading.get_ident()
         logger.info("WaapiDispatcher thread running (thread_id: %d)", self._thread_id)
@@ -368,8 +494,67 @@ class WaapiDispatcher:
                           call_count, error_count)
                 break
             
+            kind = req.get("kind", "call")
+
+            if kind == "subscribe":
+                try:
+                    uri = req["uri"]
+                    options = req.get("options") or {}
+                    event_q: queue.Queue = queue.Queue()
+                    def _on_event(*args: Any, **kwargs: Any) -> None:
+                        payload = kwargs if not args else {"args": list(args), "kwargs": kwargs}
+                        try:
+                            event_q.put(payload, block=False)
+                        except queue.Full:
+                            pass
+                    handler = self._client.subscribe(uri, _on_event, **options)
+                    sub_id = str(uuid.uuid4())
+                    with self._subscription_lock:
+                        self._subscriptions[sub_id] = (handler, event_q)
+                    reply_q = req.get("reply_q")
+                    if reply_q is not None:
+                        try:
+                            reply_q.put(("ok", sub_id), block=False)
+                        except queue.Full:
+                            pass
+                    logger.debug("Subscribed to %s -> %s", uri, sub_id)
+                except Exception as e:
+                    logger.exception("Subscribe failed. URI: %s", req.get("uri"), exc_info=True)
+                    reply_q = req.get("reply_q")
+                    if reply_q is not None:
+                        try:
+                            reply_q.put(("err", e), block=False)
+                        except queue.Full:
+                            pass
+                continue
+
+            if kind == "unsubscribe":
+                try:
+                    sub_id = req["subscription_id"]
+                    with self._subscription_lock:
+                        entry = self._subscriptions.pop(sub_id, None)
+                    success = False
+                    if entry and self._client:
+                        handler, _ = entry
+                        success = self._client.unsubscribe(handler)
+                    reply_q = req.get("reply_q")
+                    if reply_q is not None:
+                        try:
+                            reply_q.put(("ok", success), block=False)
+                        except queue.Full:
+                            pass
+                    logger.debug("Unsubscribe %s -> %s", sub_id, success)
+                except Exception as e:
+                    logger.exception("Unsubscribe failed. sub_id=%s", req.get("subscription_id"), exc_info=True)
+                    reply_q = req.get("reply_q")
+                    if reply_q is not None:
+                        try:
+                            reply_q.put(("err", e), block=False)
+                        except queue.Full:
+                            pass
+                continue
+
             call_count += 1
-            
             try:
                 logger.debug("Executing WAAPI call #%d. URI: %s", call_count, req["uri"])
                 result = self._client.call(req["uri"], req["args"], req["options"])

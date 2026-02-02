@@ -604,6 +604,221 @@ def get_all_property_name_valid_values() -> str:
         logger.exception("Failed to get all property names and associated valid value ranges.")
         raise
 
+# ---- Additional WAAPI command wrappers (pass-through to WwisePythonLibrary) ----
+def _wrap(name: str):
+    def f(*a, **k):
+        try:
+            return getattr(WwisePythonLibrary, name)(*a, **k)
+        except Exception:
+            logger.exception("Failed: %s", name)
+            raise
+    return f
+
+# Soundengine
+soundengine_get_state = _wrap("soundengine_get_state")
+soundengine_get_switch = _wrap("soundengine_get_switch")
+soundengine_load_bank = _wrap("soundengine_load_bank")
+soundengine_post_msg_monitor = _wrap("soundengine_post_msg_monitor")
+soundengine_post_trigger = _wrap("soundengine_post_trigger")
+soundengine_reset_rtpc_value = _wrap("soundengine_reset_rtpc_value")
+soundengine_seek_on_event = _wrap("soundengine_seek_on_event")
+soundengine_set_game_object_aux_send_values = _wrap("soundengine_set_game_object_aux_send_values")
+soundengine_set_game_object_output_bus_volume = _wrap("soundengine_set_game_object_output_bus_volume")
+soundengine_set_listener_spatialization = _wrap("soundengine_set_listener_spatialization")
+soundengine_set_multiple_positions = _wrap("soundengine_set_multiple_positions")
+soundengine_set_object_obstruction_and_occlusion = _wrap("soundengine_set_object_obstruction_and_occlusion")
+soundengine_set_scaling_factor = _wrap("soundengine_set_scaling_factor")
+soundengine_stop_playing_id = _wrap("soundengine_stop_playing_id")
+soundengine_unload_bank = _wrap("soundengine_unload_bank")
+# Console project
+console_project_close = _wrap("console_project_close")
+console_project_create = _wrap("console_project_create")
+console_project_open = _wrap("console_project_open")
+# Core
+get_info = _wrap("get_info")
+core_ping = _wrap("core_ping")
+# Audio
+audio_convert = _wrap("audio_convert")
+audio_import_tab_delimited = _wrap("audio_import_tab_delimited")
+audio_mute = _wrap("audio_mute")
+audio_reset_mute = _wrap("audio_reset_mute")
+audio_reset_solo = _wrap("audio_reset_solo")
+audio_set_conversion_plugin = _wrap("audio_set_conversion_plugin")
+audio_solo = _wrap("audio_solo")
+audio_source_peaks_get_min_max_peaks_in_region = _wrap("audio_source_peaks_get_min_max_peaks_in_region")
+audio_source_peaks_get_min_max_peaks_in_trimmed_region = _wrap("audio_source_peaks_get_min_max_peaks_in_trimmed_region")
+# BlendContainer
+blend_container_add_assignment = _wrap("blend_container_add_assignment")
+blend_container_add_track = _wrap("blend_container_add_track")
+blend_container_get_assignments = _wrap("blend_container_get_assignments")
+blend_container_remove_assignment = _wrap("blend_container_remove_assignment")
+# SwitchContainer
+switch_container_add_assignment = _wrap("switch_container_add_assignment")
+switch_container_get_assignments = _wrap("switch_container_get_assignments")
+switch_container_remove_assignment = _wrap("switch_container_remove_assignment")
+# Core executeLua, log, mediaPool
+execute_lua_script = _wrap("execute_lua_script")
+log_add_item = _wrap("log_add_item")
+log_clear = _wrap("log_clear")
+log_get = _wrap("log_get")
+media_pool_get = _wrap("media_pool_get")
+media_pool_get_fields = _wrap("media_pool_get_fields")
+# Object
+object_copy = _wrap("object_copy")
+object_delete = _wrap("object_delete")
+object_diff = _wrap("object_diff")
+object_get_attenuation_curve = _wrap("object_get_attenuation_curve")
+object_get_property_and_reference_names = _wrap("object_get_property_and_reference_names")
+object_get_property_info = _wrap("object_get_property_info")
+object_get_property_names = _wrap("object_get_property_names")
+object_get_types = _wrap("object_get_types")
+object_is_linked = _wrap("object_is_linked")
+object_is_property_enabled = _wrap("object_is_property_enabled")
+object_paste_properties = _wrap("object_paste_properties")
+object_set = _wrap("object_set")
+object_set_attenuation_curve = _wrap("object_set_attenuation_curve")
+object_set_linked = _wrap("object_set_linked")
+object_set_notes = _wrap("object_set_notes")
+object_set_randomizer = _wrap("object_set_randomizer")
+object_set_state_groups = _wrap("object_set_state_groups")
+object_set_state_properties = _wrap("object_set_state_properties")
+# Plugin
+plugin_get_list = _wrap("plugin_get_list")
+plugin_get_properties = _wrap("plugin_get_properties")
+plugin_get_property = _wrap("plugin_get_property")
+# Profiler
+profiler_enable_profiler_data = _wrap("profiler_enable_profiler_data")
+profiler_get_audio_objects = _wrap("profiler_get_audio_objects")
+profiler_get_busses = _wrap("profiler_get_busses")
+profiler_get_cpu_usage = _wrap("profiler_get_cpu_usage")
+profiler_get_cursor_time = _wrap("profiler_get_cursor_time")
+profiler_get_loaded_media = _wrap("profiler_get_loaded_media")
+profiler_get_meters = _wrap("profiler_get_meters")
+profiler_get_performance_monitor = _wrap("profiler_get_performance_monitor")
+profiler_get_rtpcs = _wrap("profiler_get_rtpcs")
+profiler_get_streamed_media = _wrap("profiler_get_streamed_media")
+profiler_get_voice_contributions = _wrap("profiler_get_voice_contributions")
+profiler_get_voices = _wrap("profiler_get_voices")
+profiler_register_meter = _wrap("profiler_register_meter")
+profiler_save_capture = _wrap("profiler_save_capture")
+profiler_start_capture = _wrap("profiler_start_capture")
+profiler_stop_capture = _wrap("profiler_stop_capture")
+profiler_unregister_meter = _wrap("profiler_unregister_meter")
+# Project, remote, sound
+project_save = _wrap("project_save")
+remote_connect = _wrap("remote_connect")
+remote_disconnect = _wrap("remote_disconnect")
+remote_get_available_consoles = _wrap("remote_get_available_consoles")
+remote_get_connection_status = _wrap("remote_get_connection_status")
+sound_set_active_source = _wrap("sound_set_active_source")
+# Soundbank
+soundbank_get_inclusions = _wrap("soundbank_get_inclusions")
+soundbank_process_definition_files = _wrap("soundbank_process_definition_files")
+soundbank_convert_external_sources = _wrap("soundbank_convert_external_sources")
+# SourceControl
+source_control_add = _wrap("source_control_add")
+source_control_check_out = _wrap("source_control_check_out")
+source_control_commit = _wrap("source_control_commit")
+source_control_delete = _wrap("source_control_delete")
+source_control_get_source_files = _wrap("source_control_get_source_files")
+source_control_get_status = _wrap("source_control_get_status")
+source_control_move = _wrap("source_control_move")
+source_control_revert = _wrap("source_control_revert")
+source_control_set_provider = _wrap("source_control_set_provider")
+# Transport
+transport_create = _wrap("transport_create")
+transport_destroy = _wrap("transport_destroy")
+transport_execute_action = _wrap("transport_execute_action")
+transport_get_list = _wrap("transport_get_list")
+transport_get_state = _wrap("transport_get_state")
+transport_prepare = _wrap("transport_prepare")
+# Undo
+undo_begin_group = _wrap("undo_begin_group")
+undo_cancel_group = _wrap("undo_cancel_group")
+undo_end_group = _wrap("undo_end_group")
+undo_redo = _wrap("undo_redo")
+undo_undo = _wrap("undo_undo")
+# WorkUnit
+work_unit_load = _wrap("work_unit_load")
+work_unit_unload = _wrap("work_unit_unload")
+# Debug
+debug_enable_asserts = _wrap("debug_enable_asserts")
+debug_enable_automation_mode = _wrap("debug_enable_automation_mode")
+debug_generate_tone_wav = _wrap("debug_generate_tone_wav")
+debug_get_wal_tree = _wrap("debug_get_wal_tree")
+debug_restart_waapi_servers = _wrap("debug_restart_waapi_servers")
+debug_test_assert = _wrap("debug_test_assert")
+debug_test_crash = _wrap("debug_test_crash")
+debug_validate_call = _wrap("debug_validate_call")
+# UI
+ui_bring_to_foreground = _wrap("ui_bring_to_foreground")
+ui_capture_screen = _wrap("ui_capture_screen")
+ui_commands_execute = _wrap("ui_commands_execute")
+ui_commands_get_commands = _wrap("ui_commands_get_commands")
+ui_commands_register = _wrap("ui_commands_register")
+ui_commands_unregister = _wrap("ui_commands_unregister")
+ui_get_selected_files = _wrap("ui_get_selected_files")
+ui_layout_close_view = _wrap("ui_layout_close_view")
+ui_layout_dock_view = _wrap("ui_layout_dock_view")
+ui_layout_get_current_layout_name = _wrap("ui_layout_get_current_layout_name")
+ui_layout_get_element_rectangle = _wrap("ui_layout_get_element_rectangle")
+ui_layout_get_layout = _wrap("ui_layout_get_layout")
+ui_layout_get_layout_names = _wrap("ui_layout_get_layout_names")
+ui_layout_get_or_create_view = _wrap("ui_layout_get_or_create_view")
+ui_layout_get_view_instances = _wrap("ui_layout_get_view_instances")
+ui_layout_get_view_types = _wrap("ui_layout_get_view_types")
+ui_layout_move_splitter = _wrap("ui_layout_move_splitter")
+ui_layout_remove_layout = _wrap("ui_layout_remove_layout")
+ui_layout_reset_layouts = _wrap("ui_layout_reset_layouts")
+ui_layout_set_layout = _wrap("ui_layout_set_layout")
+ui_layout_undock_view = _wrap("ui_layout_undock_view")
+ui_project_close = _wrap("ui_project_close")
+ui_project_create = _wrap("ui_project_create")
+ui_project_open = _wrap("ui_project_open")
+# Waapi
+waapi_get_functions = _wrap("waapi_get_functions")
+waapi_get_schema = _wrap("waapi_get_schema")
+waapi_schema_get_args_spec = _wrap("waapi_schema_get_args_spec")
+waapi_validate_args = _wrap("waapi_validate_args")
+waapi_get_topics = _wrap("waapi_get_topics")
+waapi_subscribe = _wrap("waapi_subscribe")
+waapi_unsubscribe = _wrap("waapi_unsubscribe")
+waapi_subscription_events = _wrap("waapi_subscription_events")
+waapi_list_topic_uris = _wrap("waapi_list_topic_uris")
+subscribe_topic_audio_imported = _wrap("subscribe_topic_audio_imported")
+subscribe_topic_log_item_added = _wrap("subscribe_topic_log_item_added")
+subscribe_topic_object_attenuation_curve_changed = _wrap("subscribe_topic_object_attenuation_curve_changed")
+subscribe_topic_object_attenuation_curve_link_changed = _wrap("subscribe_topic_object_attenuation_curve_link_changed")
+subscribe_topic_object_child_added = _wrap("subscribe_topic_object_child_added")
+subscribe_topic_object_child_removed = _wrap("subscribe_topic_object_child_removed")
+subscribe_topic_object_created = _wrap("subscribe_topic_object_created")
+subscribe_topic_object_curve_changed = _wrap("subscribe_topic_object_curve_changed")
+subscribe_topic_object_name_changed = _wrap("subscribe_topic_object_name_changed")
+subscribe_topic_object_notes_changed = _wrap("subscribe_topic_object_notes_changed")
+subscribe_topic_object_post_deleted = _wrap("subscribe_topic_object_post_deleted")
+subscribe_topic_object_pre_deleted = _wrap("subscribe_topic_object_pre_deleted")
+subscribe_topic_object_property_changed = _wrap("subscribe_topic_object_property_changed")
+subscribe_topic_object_reference_changed = _wrap("subscribe_topic_object_reference_changed")
+subscribe_topic_object_structure_changed = _wrap("subscribe_topic_object_structure_changed")
+subscribe_topic_profiler_capture_log_item_added = _wrap("subscribe_topic_profiler_capture_log_item_added")
+subscribe_topic_profiler_game_object_registered = _wrap("subscribe_topic_profiler_game_object_registered")
+subscribe_topic_profiler_game_object_reset = _wrap("subscribe_topic_profiler_game_object_reset")
+subscribe_topic_profiler_game_object_unregistered = _wrap("subscribe_topic_profiler_game_object_unregistered")
+subscribe_topic_profiler_state_changed = _wrap("subscribe_topic_profiler_state_changed")
+subscribe_topic_profiler_switch_changed = _wrap("subscribe_topic_profiler_switch_changed")
+subscribe_topic_project_loaded = _wrap("subscribe_topic_project_loaded")
+subscribe_topic_project_post_closed = _wrap("subscribe_topic_project_post_closed")
+subscribe_topic_project_pre_closed = _wrap("subscribe_topic_project_pre_closed")
+subscribe_topic_project_saved = _wrap("subscribe_topic_project_saved")
+subscribe_topic_soundbank_generated = _wrap("subscribe_topic_soundbank_generated")
+subscribe_topic_soundbank_generation_done = _wrap("subscribe_topic_soundbank_generation_done")
+subscribe_topic_switch_container_assignment_added = _wrap("subscribe_topic_switch_container_assignment_added")
+subscribe_topic_switch_container_assignment_removed = _wrap("subscribe_topic_switch_container_assignment_removed")
+subscribe_topic_transport_state_changed = _wrap("subscribe_topic_transport_state_changed")
+subscribe_topic_debug_assert_failed = _wrap("subscribe_topic_debug_assert_failed")
+subscribe_topic_ui_commands_executed = _wrap("subscribe_topic_ui_commands_executed")
+subscribe_topic_ui_selection_changed = _wrap("subscribe_topic_ui_selection_changed")
+
 #==============================================================================
 #                            Function Dictionary
 #==============================================================================
@@ -802,7 +1017,193 @@ COMMANDS: dict[str, Command] = {
         func=get_all_property_name_valid_values, 
         doc ="Return a newline-formatted help string listing the correct WAAPI property identifiers for the specified Wwise object type."
              "Args: None. Returns: str."
-    )
+    ),
+    # Additional WAAPI commands
+    "soundengine_get_state": Command(func=soundengine_get_state, doc="Get current state of a State Group. Args: state_group."),
+    "soundengine_get_switch": Command(func=soundengine_get_switch, doc="Get current switch for Game Object. Args: switch_group, game_object."),
+    "soundengine_load_bank": Command(func=soundengine_load_bank, doc="Load SoundBank. Args: bank_id_or_path, **kwargs."),
+    "soundengine_post_msg_monitor": Command(func=soundengine_post_msg_monitor, doc="Post message to Profiler. Args: message, **kwargs."),
+    "soundengine_post_trigger": Command(func=soundengine_post_trigger, doc="Post trigger. Args: trigger_name, game_object, **kwargs."),
+    "soundengine_reset_rtpc_value": Command(func=soundengine_reset_rtpc_value, doc="Reset RTPC to default. Args: rtpc_name, game_object=None."),
+    "soundengine_seek_on_event": Command(func=soundengine_seek_on_event, doc="Seek on event. Args: event_name, game_object, position_ms, **kwargs."),
+    "soundengine_set_game_object_aux_send_values": Command(func=soundengine_set_game_object_aux_send_values, doc="Set aux send values. Args: game_object, aux_send_values, **kwargs."),
+    "soundengine_set_game_object_output_bus_volume": Command(func=soundengine_set_game_object_output_bus_volume, doc="Set output bus volume. Args: game_object, bus_id_or_path, volume, **kwargs."),
+    "soundengine_set_listener_spatialization": Command(func=soundengine_set_listener_spatialization, doc="Set listener spatialization. Args: listener_id, channel_config, volume_offsets, spatialized, **kwargs."),
+    "soundengine_set_multiple_positions": Command(func=soundengine_set_multiple_positions, doc="Set multiple positions. Args: game_object, positions, **kwargs."),
+    "soundengine_set_object_obstruction_and_occlusion": Command(func=soundengine_set_object_obstruction_and_occlusion, doc="Set obstruction/occlusion. Args: game_object, obstruction, occlusion, **kwargs."),
+    "soundengine_set_scaling_factor": Command(func=soundengine_set_scaling_factor, doc="Set attenuation scaling factor. Args: game_object, attenuation_scaling_factor."),
+    "soundengine_stop_playing_id": Command(func=soundengine_stop_playing_id, doc="Stop playing ID. Args: playing_id."),
+    "soundengine_unload_bank": Command(func=soundengine_unload_bank, doc="Unload SoundBank. Args: bank_id_or_path, **kwargs."),
+    "console_project_close": Command(func=console_project_close, doc="Close current project."),
+    "console_project_create": Command(func=console_project_create, doc="Create project. Args: path, platform, **kwargs."),
+    "console_project_open": Command(func=console_project_open, doc="Open project. Args: path, **kwargs."),
+    "get_info": Command(func=get_info, doc="Get global Wwise info. Returns dict."),
+    "core_ping": Command(func=core_ping, doc="Verify WAAPI available."),
+    "audio_convert": Command(func=audio_convert, doc="Convert audio. Args: **kwargs."),
+    "audio_import_tab_delimited": Command(func=audio_import_tab_delimited, doc="Import tab-delimited. Args: import_file, **kwargs."),
+    "audio_mute": Command(func=audio_mute, doc="Mute object. Args: object_path."),
+    "audio_reset_mute": Command(func=audio_reset_mute, doc="Unmute all."),
+    "audio_reset_solo": Command(func=audio_reset_solo, doc="Unsolo all."),
+    "audio_set_conversion_plugin": Command(func=audio_set_conversion_plugin, doc="Set conversion plugin. Args: plugin_id, platform, conversion, **kwargs."),
+    "audio_solo": Command(func=audio_solo, doc="Solo object. Args: object_path."),
+    "audio_source_peaks_get_min_max_peaks_in_region": Command(func=audio_source_peaks_get_min_max_peaks_in_region, doc="Get peaks in region. Args: object_path, time_from, time_to, num_peaks=1, **kwargs."),
+    "audio_source_peaks_get_min_max_peaks_in_trimmed_region": Command(func=audio_source_peaks_get_min_max_peaks_in_trimmed_region, doc="Get peaks in trimmed region. Args: object_path, num_peaks=1, **kwargs."),
+    "blend_container_add_assignment": Command(func=blend_container_add_assignment, doc="Add blend assignment. Args: blend_container_path, blend_track_path, child_path, edges=None, index=None, **kwargs."),
+    "blend_container_add_track": Command(func=blend_container_add_track, doc="Add blend track. Args: blend_container_path, name, **kwargs."),
+    "blend_container_get_assignments": Command(func=blend_container_get_assignments, doc="Get blend assignments. Args: blend_container_path, blend_track_path=None, **kwargs."),
+    "blend_container_remove_assignment": Command(func=blend_container_remove_assignment, doc="Remove blend assignment. Args: blend_container_path, child_path, **kwargs."),
+    "switch_container_add_assignment": Command(func=switch_container_add_assignment, doc="Assign child to switch. Args: switch_container_path, child_path, state_path."),
+    "switch_container_get_assignments": Command(func=switch_container_get_assignments, doc="Get switch container assignments. Args: switch_container_path."),
+    "switch_container_remove_assignment": Command(func=switch_container_remove_assignment, doc="Remove switch assignment. Args: switch_container_path, child_path, state_path."),
+    "execute_lua_script": Command(func=execute_lua_script, doc="Execute Lua. Args: lua_script=None, lua_string=None, **kwargs."),
+    "log_add_item": Command(func=log_add_item, doc="Add log item. Args: channel, message, **kwargs."),
+    "log_clear": Command(func=log_clear, doc="Clear log. Args: channel."),
+    "log_get": Command(func=log_get, doc="Get log. Args: channel, **kwargs."),
+    "media_pool_get": Command(func=media_pool_get, doc="Get Media Pool files. Args: **kwargs."),
+    "media_pool_get_fields": Command(func=media_pool_get_fields, doc="Get Media Pool fields. Args: **kwargs."),
+    "object_copy": Command(func=object_copy, doc="Copy object. Args: object_path, parent_path, **kwargs."),
+    "object_delete": Command(func=object_delete, doc="Delete object. Args: object_path."),
+    "object_diff": Command(func=object_diff, doc="Diff objects. Args: source_path, target_path, **kwargs."),
+    "object_get_attenuation_curve": Command(func=object_get_attenuation_curve, doc="Get attenuation curve. Args: object_path, curve_type='Volume', **kwargs."),
+    "object_get_property_and_reference_names": Command(func=object_get_property_and_reference_names, doc="Get property/reference names. Args: object_path, **kwargs."),
+    "object_get_property_info": Command(func=object_get_property_info, doc="Get property info. Args: object_path, property_name, **kwargs."),
+    "object_get_property_names": Command(func=object_get_property_names, doc="Get property names. Args: object_path, **kwargs."),
+    "object_get_types": Command(func=object_get_types, doc="Get object types. Args: **kwargs."),
+    "object_is_linked": Command(func=object_is_linked, doc="Check if linked. Args: object_path, property_name, platform='Windows', **kwargs."),
+    "object_is_property_enabled": Command(func=object_is_property_enabled, doc="Check property enabled. Args: object_path, property_name, platform='Windows', **kwargs."),
+    "object_paste_properties": Command(func=object_paste_properties, doc="Paste properties. Args: source_path, target_paths, **kwargs."),
+    "object_set": Command(func=object_set, doc="Batch set object. Args: object_path, updates, **kwargs."),
+    "object_set_attenuation_curve": Command(func=object_set_attenuation_curve, doc="Set attenuation curve. Args: object_path, curve_type, points, use=True, **kwargs."),
+    "object_set_linked": Command(func=object_set_linked, doc="Set linked. Args: object_path, property_name, linked, platform='Windows', **kwargs."),
+    "object_set_notes": Command(func=object_set_notes, doc="Set notes. Args: object_path, notes."),
+    "object_set_randomizer": Command(func=object_set_randomizer, doc="Set randomizer. Args: object_path, property_name, enabled=None, min_val=None, max_val=None, platform=None, **kwargs."),
+    "object_set_state_groups": Command(func=object_set_state_groups, doc="Set state groups. Args: object_path, state_groups."),
+    "object_set_state_properties": Command(func=object_set_state_properties, doc="Set state properties. Args: object_path, state_properties, **kwargs."),
+    "plugin_get_list": Command(func=plugin_get_list, doc="Get plugin list. Args: **kwargs."),
+    "plugin_get_properties": Command(func=plugin_get_properties, doc="Get plugin properties. Args: plugin_id, **kwargs."),
+    "plugin_get_property": Command(func=plugin_get_property, doc="Get plugin property. Args: plugin_id, property_name, **kwargs."),
+    "profiler_enable_profiler_data": Command(func=profiler_enable_profiler_data, doc="Enable profiler data. Args: data_types, **kwargs."),
+    "profiler_get_audio_objects": Command(func=profiler_get_audio_objects, doc="Get audio objects. Args: **kwargs."),
+    "profiler_get_busses": Command(func=profiler_get_busses, doc="Get busses. Args: **kwargs."),
+    "profiler_get_cpu_usage": Command(func=profiler_get_cpu_usage, doc="Get CPU usage. Args: **kwargs."),
+    "profiler_get_cursor_time": Command(func=profiler_get_cursor_time, doc="Get cursor time. Args: **kwargs."),
+    "profiler_get_loaded_media": Command(func=profiler_get_loaded_media, doc="Get loaded media. Args: **kwargs."),
+    "profiler_get_meters": Command(func=profiler_get_meters, doc="Get meters. Args: **kwargs."),
+    "profiler_get_performance_monitor": Command(func=profiler_get_performance_monitor, doc="Get performance monitor. Args: **kwargs."),
+    "profiler_get_rtpcs": Command(func=profiler_get_rtpcs, doc="Get RTPCs. Args: **kwargs."),
+    "profiler_get_streamed_media": Command(func=profiler_get_streamed_media, doc="Get streamed media. Args: **kwargs."),
+    "profiler_get_voice_contributions": Command(func=profiler_get_voice_contributions, doc="Get voice contributions. Args: **kwargs."),
+    "profiler_get_voices": Command(func=profiler_get_voices, doc="Get voices. Args: **kwargs."),
+    "profiler_register_meter": Command(func=profiler_register_meter, doc="Register meter. Args: object_path, **kwargs."),
+    "profiler_save_capture": Command(func=profiler_save_capture, doc="Save capture. Args: file_path, **kwargs."),
+    "profiler_start_capture": Command(func=profiler_start_capture, doc="Start capture. Args: **kwargs."),
+    "profiler_stop_capture": Command(func=profiler_stop_capture, doc="Stop capture. Args: **kwargs."),
+    "profiler_unregister_meter": Command(func=profiler_unregister_meter, doc="Unregister meter. Args: object_path, **kwargs."),
+    "project_save": Command(func=project_save, doc="Save project. Args: **kwargs."),
+    "remote_connect": Command(func=remote_connect, doc="Connect to Sound Engine. Args: host, **kwargs."),
+    "remote_disconnect": Command(func=remote_disconnect, doc="Disconnect. Args: **kwargs."),
+    "remote_get_available_consoles": Command(func=remote_get_available_consoles, doc="Get available consoles. Args: **kwargs."),
+    "remote_get_connection_status": Command(func=remote_get_connection_status, doc="Get connection status. Args: **kwargs."),
+    "sound_set_active_source": Command(func=sound_set_active_source, doc="Set active source. Args: sound_path, source_id_or_path, **kwargs."),
+    "soundbank_get_inclusions": Command(func=soundbank_get_inclusions, doc="Get soundbank inclusions. Args: soundbank_path, **kwargs."),
+    "soundbank_process_definition_files": Command(func=soundbank_process_definition_files, doc="Process definition files. Args: files, **kwargs."),
+    "soundbank_convert_external_sources": Command(func=soundbank_convert_external_sources, doc="Convert external sources. Args: **kwargs."),
+    "source_control_add": Command(func=source_control_add, doc="Source control add. Args: files, **kwargs."),
+    "source_control_check_out": Command(func=source_control_check_out, doc="Source control checkout. Args: files, **kwargs."),
+    "source_control_commit": Command(func=source_control_commit, doc="Source control commit. Args: files, **kwargs."),
+    "source_control_delete": Command(func=source_control_delete, doc="Source control delete. Args: files, **kwargs."),
+    "source_control_get_source_files": Command(func=source_control_get_source_files, doc="Get source files. Args: **kwargs."),
+    "source_control_get_status": Command(func=source_control_get_status, doc="Get source control status. Args: files, **kwargs."),
+    "source_control_move": Command(func=source_control_move, doc="Source control move. Args: files, new_files, **kwargs."),
+    "source_control_revert": Command(func=source_control_revert, doc="Source control revert. Args: files, **kwargs."),
+    "source_control_set_provider": Command(func=source_control_set_provider, doc="Set source control provider. Args: provider, **kwargs."),
+    "transport_create": Command(func=transport_create, doc="Create transport. Args: object_path, **kwargs."),
+    "transport_destroy": Command(func=transport_destroy, doc="Destroy transport. Args: transport_id, **kwargs."),
+    "transport_execute_action": Command(func=transport_execute_action, doc="Execute transport action. Args: action, transport_id=None, **kwargs."),
+    "transport_get_list": Command(func=transport_get_list, doc="Get transport list. Args: **kwargs."),
+    "transport_get_state": Command(func=transport_get_state, doc="Get transport state. Args: transport_id, **kwargs."),
+    "transport_prepare": Command(func=transport_prepare, doc="Prepare for playback. Args: object_path, **kwargs."),
+    "undo_begin_group": Command(func=undo_begin_group, doc="Begin undo group. Args: **kwargs."),
+    "undo_cancel_group": Command(func=undo_cancel_group, doc="Cancel undo group. Args: **kwargs."),
+    "undo_end_group": Command(func=undo_end_group, doc="End undo group. Args: **kwargs."),
+    "undo_redo": Command(func=undo_redo, doc="Redo. Args: **kwargs."),
+    "undo_undo": Command(func=undo_undo, doc="Undo. Args: **kwargs."),
+    "work_unit_load": Command(func=work_unit_load, doc="Load work unit. Args: work_unit_path, **kwargs."),
+    "work_unit_unload": Command(func=work_unit_unload, doc="Unload work unit. Args: work_unit_path, **kwargs."),
+    "debug_enable_asserts": Command(func=debug_enable_asserts, doc="Enable asserts. Args: enabled."),
+    "debug_enable_automation_mode": Command(func=debug_enable_automation_mode, doc="Enable automation mode. Args: enabled."),
+    "debug_generate_tone_wav": Command(func=debug_generate_tone_wav, doc="Generate tone WAV. Args: file_path, **kwargs."),
+    "debug_get_wal_tree": Command(func=debug_get_wal_tree, doc="Get WAL tree. Args: **kwargs."),
+    "debug_restart_waapi_servers": Command(func=debug_restart_waapi_servers, doc="Restart WAAPI servers. Args: **kwargs."),
+    "debug_test_assert": Command(func=debug_test_assert, doc="Test assert. Args: **kwargs."),
+    "debug_test_crash": Command(func=debug_test_crash, doc="Test crash. Args: **kwargs."),
+    "debug_validate_call": Command(func=debug_validate_call, doc="Validate WAAPI call. Args: uri, args=None, **kwargs."),
+    "ui_bring_to_foreground": Command(func=ui_bring_to_foreground, doc="Bring window to foreground. Args: **kwargs."),
+    "ui_capture_screen": Command(func=ui_capture_screen, doc="Capture screen. Args: **kwargs."),
+    "ui_commands_execute": Command(func=ui_commands_execute, doc="Execute UI command. Args: command, **kwargs."),
+    "ui_commands_get_commands": Command(func=ui_commands_get_commands, doc="Get commands. Args: **kwargs."),
+    "ui_commands_register": Command(func=ui_commands_register, doc="Register commands. Args: commands, **kwargs."),
+    "ui_commands_unregister": Command(func=ui_commands_unregister, doc="Unregister commands. Args: commands, **kwargs."),
+    "ui_get_selected_files": Command(func=ui_get_selected_files, doc="Get selected files. Args: **kwargs."),
+    "ui_layout_close_view": Command(func=ui_layout_close_view, doc="Close view. Args: view_id, **kwargs."),
+    "ui_layout_dock_view": Command(func=ui_layout_dock_view, doc="Dock view. Args: view_id, target_id, side, name, **kwargs."),
+    "ui_layout_get_current_layout_name": Command(func=ui_layout_get_current_layout_name, doc="Get current layout name. Args: **kwargs."),
+    "ui_layout_get_element_rectangle": Command(func=ui_layout_get_element_rectangle, doc="Get element rect. Args: element_id, **kwargs."),
+    "ui_layout_get_layout": Command(func=ui_layout_get_layout, doc="Get layout. Args: name, **kwargs."),
+    "ui_layout_get_layout_names": Command(func=ui_layout_get_layout_names, doc="Get layout names. Args: **kwargs."),
+    "ui_layout_get_or_create_view": Command(func=ui_layout_get_or_create_view, doc="Get or create view. Args: name, pos_x=0, pos_y=0, **kwargs."),
+    "ui_layout_get_view_instances": Command(func=ui_layout_get_view_instances, doc="Get view instances. Args: name='Designer', **kwargs."),
+    "ui_layout_get_view_types": Command(func=ui_layout_get_view_types, doc="Get view types. Args: **kwargs."),
+    "ui_layout_move_splitter": Command(func=ui_layout_move_splitter, doc="Move splitter. Args: splitter_id, delta, **kwargs."),
+    "ui_layout_remove_layout": Command(func=ui_layout_remove_layout, doc="Remove layout. Args: layout_name, **kwargs."),
+    "ui_layout_reset_layouts": Command(func=ui_layout_reset_layouts, doc="Reset layouts. Args: **kwargs."),
+    "ui_layout_set_layout": Command(func=ui_layout_set_layout, doc="Set layout. Args: layout_json, **kwargs."),
+    "ui_layout_undock_view": Command(func=ui_layout_undock_view, doc="Undock view. Args: view_id, **kwargs."),
+    "ui_project_close": Command(func=ui_project_close, doc="Close project (UI). Args: **kwargs."),
+    "ui_project_create": Command(func=ui_project_create, doc="Create project (UI). Args: path, platform, **kwargs."),
+    "ui_project_open": Command(func=ui_project_open, doc="Open project (UI). Args: path, **kwargs."),
+    "waapi_get_functions": Command(func=waapi_get_functions, doc="Get WAAPI functions. Args: **kwargs."),
+    "waapi_get_schema": Command(func=waapi_get_schema, doc="Get WAAPI schema. Args: uri=None, **kwargs."),
+    "waapi_schema_get_args_spec": Command(func=waapi_schema_get_args_spec, doc="Get args spec (required/optional) for a WAAPI URI from getSchema. Args: uri."),
+    "waapi_validate_args": Command(func=waapi_validate_args, doc="Validate args dict against WAAPI schema for uri. Args: uri, args (dict). Returns (ok, errors)."),
+    "waapi_get_topics": Command(func=waapi_get_topics, doc="Get WAAPI topics. Args: **kwargs."),
+    "waapi_subscribe": Command(func=waapi_subscribe, doc="Subscribe to a WAAPI topic. Args: uri, options=None, **kwargs. Returns subscription_id."),
+    "waapi_unsubscribe": Command(func=waapi_unsubscribe, doc="Unsubscribe by subscription_id. Args: subscription_id. Returns bool."),
+    "waapi_subscription_events": Command(func=waapi_subscription_events, doc="Get events for a subscription. Args: subscription_id, max_count=None, clear=True. Returns list of event dicts."),
+    "waapi_list_topic_uris": Command(func=waapi_list_topic_uris, doc="Return list of WAAPI topic URIs from reference. Args: None."),
+    "subscribe_topic_audio_imported": Command(func=subscribe_topic_audio_imported, doc="Subscribe to ak.wwise.core.audio.imported. Returns subscription_id."),
+    "subscribe_topic_log_item_added": Command(func=subscribe_topic_log_item_added, doc="Subscribe to ak.wwise.core.log.itemAdded. Returns subscription_id."),
+    "subscribe_topic_object_attenuation_curve_changed": Command(func=subscribe_topic_object_attenuation_curve_changed, doc="Subscribe to ak.wwise.core.object.attenuationCurveChanged. Returns subscription_id."),
+    "subscribe_topic_object_attenuation_curve_link_changed": Command(func=subscribe_topic_object_attenuation_curve_link_changed, doc="Subscribe to ak.wwise.core.object.attenuationCurveLinkChanged. Returns subscription_id."),
+    "subscribe_topic_object_child_added": Command(func=subscribe_topic_object_child_added, doc="Subscribe to ak.wwise.core.object.childAdded. Returns subscription_id."),
+    "subscribe_topic_object_child_removed": Command(func=subscribe_topic_object_child_removed, doc="Subscribe to ak.wwise.core.object.childRemoved. Returns subscription_id."),
+    "subscribe_topic_object_created": Command(func=subscribe_topic_object_created, doc="Subscribe to ak.wwise.core.object.created. Returns subscription_id."),
+    "subscribe_topic_object_curve_changed": Command(func=subscribe_topic_object_curve_changed, doc="Subscribe to ak.wwise.core.object.curveChanged. Returns subscription_id."),
+    "subscribe_topic_object_name_changed": Command(func=subscribe_topic_object_name_changed, doc="Subscribe to ak.wwise.core.object.nameChanged. Returns subscription_id."),
+    "subscribe_topic_object_notes_changed": Command(func=subscribe_topic_object_notes_changed, doc="Subscribe to ak.wwise.core.object.notesChanged. Returns subscription_id."),
+    "subscribe_topic_object_post_deleted": Command(func=subscribe_topic_object_post_deleted, doc="Subscribe to ak.wwise.core.object.postDeleted. Returns subscription_id."),
+    "subscribe_topic_object_pre_deleted": Command(func=subscribe_topic_object_pre_deleted, doc="Subscribe to ak.wwise.core.object.preDeleted. Returns subscription_id."),
+    "subscribe_topic_object_property_changed": Command(func=subscribe_topic_object_property_changed, doc="Subscribe to ak.wwise.core.object.propertyChanged. Returns subscription_id."),
+    "subscribe_topic_object_reference_changed": Command(func=subscribe_topic_object_reference_changed, doc="Subscribe to ak.wwise.core.object.referenceChanged. Returns subscription_id."),
+    "subscribe_topic_object_structure_changed": Command(func=subscribe_topic_object_structure_changed, doc="Subscribe to ak.wwise.core.object.structureChanged. Returns subscription_id."),
+    "subscribe_topic_profiler_capture_log_item_added": Command(func=subscribe_topic_profiler_capture_log_item_added, doc="Subscribe to ak.wwise.core.profiler.captureLog.itemAdded. Returns subscription_id."),
+    "subscribe_topic_profiler_game_object_registered": Command(func=subscribe_topic_profiler_game_object_registered, doc="Subscribe to ak.wwise.core.profiler.gameObjectRegistered. Returns subscription_id."),
+    "subscribe_topic_profiler_game_object_reset": Command(func=subscribe_topic_profiler_game_object_reset, doc="Subscribe to ak.wwise.core.profiler.gameObjectReset. Returns subscription_id."),
+    "subscribe_topic_profiler_game_object_unregistered": Command(func=subscribe_topic_profiler_game_object_unregistered, doc="Subscribe to ak.wwise.core.profiler.gameObjectUnregistered. Returns subscription_id."),
+    "subscribe_topic_profiler_state_changed": Command(func=subscribe_topic_profiler_state_changed, doc="Subscribe to ak.wwise.core.profiler.stateChanged. Returns subscription_id."),
+    "subscribe_topic_profiler_switch_changed": Command(func=subscribe_topic_profiler_switch_changed, doc="Subscribe to ak.wwise.core.profiler.switchChanged. Returns subscription_id."),
+    "subscribe_topic_project_loaded": Command(func=subscribe_topic_project_loaded, doc="Subscribe to ak.wwise.core.project.loaded. Returns subscription_id."),
+    "subscribe_topic_project_post_closed": Command(func=subscribe_topic_project_post_closed, doc="Subscribe to ak.wwise.core.project.postClosed. Returns subscription_id."),
+    "subscribe_topic_project_pre_closed": Command(func=subscribe_topic_project_pre_closed, doc="Subscribe to ak.wwise.core.project.preClosed. Returns subscription_id."),
+    "subscribe_topic_project_saved": Command(func=subscribe_topic_project_saved, doc="Subscribe to ak.wwise.core.project.saved. Returns subscription_id."),
+    "subscribe_topic_soundbank_generated": Command(func=subscribe_topic_soundbank_generated, doc="Subscribe to ak.wwise.core.soundbank.generated. Returns subscription_id."),
+    "subscribe_topic_soundbank_generation_done": Command(func=subscribe_topic_soundbank_generation_done, doc="Subscribe to ak.wwise.core.soundbank.generationDone. Returns subscription_id."),
+    "subscribe_topic_switch_container_assignment_added": Command(func=subscribe_topic_switch_container_assignment_added, doc="Subscribe to ak.wwise.core.switchContainer.assignmentAdded. Returns subscription_id."),
+    "subscribe_topic_switch_container_assignment_removed": Command(func=subscribe_topic_switch_container_assignment_removed, doc="Subscribe to ak.wwise.core.switchContainer.assignmentRemoved. Returns subscription_id."),
+    "subscribe_topic_transport_state_changed": Command(func=subscribe_topic_transport_state_changed, doc="Subscribe to ak.wwise.core.transport.stateChanged. Returns subscription_id."),
+    "subscribe_topic_debug_assert_failed": Command(func=subscribe_topic_debug_assert_failed, doc="Subscribe to ak.wwise.debug.assertFailed (Debug builds). Returns subscription_id."),
+    "subscribe_topic_ui_commands_executed": Command(func=subscribe_topic_ui_commands_executed, doc="Subscribe to ak.wwise.ui.commands.executed. Returns subscription_id."),
+    "subscribe_topic_ui_selection_changed": Command(func=subscribe_topic_ui_selection_changed, doc="Subscribe to ak.wwise.ui.selectionChanged. Returns subscription_id."),
 }
 
 def list_commands()-> list[str]: 
@@ -856,40 +1257,126 @@ def _resolve(val, store):
         return {k: _resolve(v, store) for k, v in val.items()}
     return val
 
+#  D. Commands that modify Wwise project (trigger undo wrap). Read-only / source_control get_* do NOT trigger.
+PLAN_MODIFYING_COMMANDS = frozenset({
+    "create_objects", "create_events", "create_game_objects", "create_rtpcs",
+    "create_switch_groups", "create_switches", "create_state_groups", "create_states",
+    "move_object_by_path", "rename_objects", "import_audio_files",
+    "include_in_soundbank", "generate_soundbanks",
+    "set_object_reference", "set_object_property",
+    "blend_container_add_assignment", "blend_container_add_track", "blend_container_remove_assignment",
+    "switch_container_add_assignment", "switch_container_remove_assignment",
+    "execute_lua_script", "log_add_item", "log_clear",
+    "object_copy", "object_delete", "object_paste_properties", "object_set",
+    "object_set_attenuation_curve", "object_set_linked", "object_set_notes",
+    "object_set_randomizer", "object_set_state_groups", "object_set_state_properties",
+    "project_save", "sound_set_active_source",
+    "soundbank_process_definition_files", "soundbank_convert_external_sources",
+    "source_control_add", "source_control_check_out", "source_control_commit", "source_control_delete",
+    "source_control_move", "source_control_revert", "source_control_set_provider",
+    "transport_create", "transport_destroy", "transport_execute_action", "transport_prepare", "transport_use_originals",
+    "work_unit_load", "work_unit_unload",
+    "console_project_close", "console_project_create", "console_project_open",
+    "audio_convert", "audio_import_tab_delimited", "audio_mute", "audio_reset_mute", "audio_reset_solo",
+    "audio_set_conversion_plugin", "audio_solo",
+    "ui_layout_close_view", "ui_layout_dock_view", "ui_layout_remove_layout", "ui_layout_reset_layouts",
+    "ui_layout_set_layout", "ui_layout_switch_layout", "ui_layout_undock_view",
+    "ui_project_close", "ui_project_create", "ui_project_open",
+    "debug_enable_asserts", "debug_enable_automation_mode", "debug_generate_tone_wav",
+    "debug_restart_waapi_servers", "debug_test_assert", "debug_test_crash",
+})
+
+def _plan_verbs(plan: list[any]) -> list[str]:
+    """Collect verb (command name) from each step without executing. Used to decide if undo wrap is needed."""
+    verbs: list[str] = []
+    for step in plan:
+        if isinstance(step, str):
+            verb, _, _ = _parse_call(step)
+            verbs.append(verb)
+        else:
+            verbs.append(step["command"])
+    return verbs
+
 def _run_plan_sync(plan: list[any]) -> list[dict[str, any]]:
     store: dict[str, any] = {}        # per-plan variable bucket
     log  : list[dict[str, any]] = []
 
-    for step in plan:
-        #   Legacy string mode 
-        if isinstance(step, str):
-            verb, args, kwargs = _parse_call(step)
-            args   = _resolve(args, store)      # allow $var inside lists
-            kwargs = _resolve(kwargs, store)
-            save_as = None                      # no explicit name in legacy
-        #   Dict style  
-        else:
-            verb   = step["command"]
-            args   = []                         # dict style uses keywords
-            kwargs = _resolve(step["args"], store)
-            save_as = step.get("save_as")
-
-        #   Execute & validate 
+    def _run_one(verb: str, args: list, kwargs: dict, save_as: str | None) -> any:
         if verb not in COMMANDS:
             raise ValueError(f"Unknown command '{verb}'")
         func = COMMANDS[verb].func
         inspect.signature(func).bind_partial(*args, **kwargs)
         result = func(*args, **kwargs)
-
-        #   Store results 
         store["last"] = result
         if save_as:
             store[save_as] = result
+        return result
 
-        log.append(
-            {"command": verb, 
-             "kwargs": kwargs,
-             "result": result})
+    # 0) Ensure WAAPI connected before any Wwise command
+    try:
+        conn_result = _run_one("connect_to_wwise", [], {}, None)
+        log.append({"command": "connect_to_wwise", "kwargs": {}, "result": conn_result})
+    except Exception as e:
+        logger.exception("connect_to_wwise failed at start of plan")
+        log.append({"command": "connect_to_wwise", "kwargs": {}, "result": None, "error": str(e)})
+        raise
+
+    # 1) Only wrap with undo when plan contains at least one project-modifying command
+    plan_verbs = _plan_verbs(plan)
+    need_undo = any(v in PLAN_MODIFYING_COMMANDS for v in plan_verbs)
+
+    if need_undo:
+        # 1a) Start undo group so the whole plan is one undo step in Wwise
+        try:
+            beg_result = _run_one("undo_begin_group", [], {}, None)
+            log.append({"command": "undo_begin_group", "kwargs": {}, "result": beg_result})
+        except Exception as e:
+            logger.exception("undo_begin_group failed before running plan")
+            log.append({"command": "undo_begin_group", "kwargs": {}, "result": None, "error": str(e)})
+            raise
+
+    # 2) Run user plan steps
+    try:
+        for step in plan:
+            if isinstance(step, str):
+                verb, args, kwargs = _parse_call(step)
+                args   = _resolve(args, store)
+                kwargs = _resolve(kwargs, store)
+                save_as = None
+            else:
+                verb   = step["command"]
+                args   = []
+                kwargs = _resolve(step["args"], store)
+                save_as = step.get("save_as")
+
+            result = _run_one(verb, args, kwargs, save_as)
+            log.append({"command": verb, "kwargs": kwargs, "result": result})
+    except Exception as e:
+        if need_undo:
+            # 3a) Plan failed: cancel undo group so Wwise reverts all changes (all-or-nothing)
+            logger.exception("Plan step failed, cancelling undo group")
+            try:
+                cancel_result = _run_one("undo_cancel_group", [], {}, None)
+                log.append({"command": "undo_cancel_group", "kwargs": {}, "result": cancel_result})
+            except Exception as cancel_e:
+                logger.warning("undo_cancel_group failed: %s", cancel_e)
+                log.append({"command": "undo_cancel_group", "kwargs": {}, "result": None, "error": str(cancel_e)})
+        raise
+
+    if need_undo:
+        # 3b) All steps ok: end undo group so the whole plan is one undo step
+        try:
+            end_result = _run_one("undo_end_group", [], {}, None)
+            log.append({"command": "undo_end_group", "kwargs": {}, "result": end_result})
+        except Exception as e:
+            logger.exception("undo_end_group failed after plan succeeded")
+            try:
+                _run_one("undo_cancel_group", [], {}, None)
+                log.append({"command": "undo_cancel_group", "kwargs": {}, "result": None, "reason": "after undo_end_group failure"})
+            except Exception:
+                pass
+            log.append({"command": "undo_end_group", "kwargs": {}, "result": None, "error": str(e)})
+            raise
 
     return log
 
@@ -901,16 +1388,6 @@ mcp = FastMCP(
     name = "Wwise-MCP Server",
     version = "1.0"
 )
-
-@mcp.tool()
-async def list_wwise_commands()-> list[str]:
-    
-    """
-    Return each available command with its signature,
-    e.g. 'create_events(source_paths (list[str]), dst_parent_paths (list[str]), event_types (list[str]), event_names (list[str]))'.
-    """
-
-    return list_commands()
 
 @mcp.tool()
 async def execute_plan( plan: list[str]) -> dict [str, any]:

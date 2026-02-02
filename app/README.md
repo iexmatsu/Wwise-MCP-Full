@@ -19,10 +19,11 @@ Python bridge for interacting with Wwise 2024.1+ using the Model Context Protoco
    source .venv/bin/activate  # On macOS
    .venv\Scripts\activate     # On Windows
    ```
-5. Install dependencies:
+5. Install dependencies (from repo root where `requirements.txt` is):
    ```bash
-   pip install anyio fastmcp waapi-client 
+   pip install -r requirements.txt
    ```
+   Or install the three core packages only: `pip install anyio fastmcp waapi-client`
 6. Configure your MCP Client (i.e Claude Desktop) to use the Wwise-MCP server:
    ```bash
    {
